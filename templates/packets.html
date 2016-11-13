@@ -1,5 +1,43 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+
+    <style>
+
+{#        #content-window {#}
+{#            position:fixed;#}
+{#            height:50px;#}
+{#            background-color: #ededed;#}
+{#            bottom:0px;#}
+{#            left:0px;#}
+{#            right:0px;#}
+{#            margin-bottom:0px;#}
+{#        }#}
+
+    </style>
+
+{% endblock %}
+
 
 {% block page_content %}
-    packets
+
+    {% for packet in packets %}
+
+        <div data-value-id='{{ packet.pk }}'>
+            <div>{{ packet.summary }}</div>
+        </div>
+
+    {% empty %}
+        <p class="empty">No packets yet.</p>
+    {% endfor %}
+
+    <div id="content-window">
+        <span>This is some text</span>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static "js/reconnecting-websocket.min.js" %}" type="text/javascript"></script>
 {% endblock %}

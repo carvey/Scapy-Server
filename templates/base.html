@@ -23,6 +23,11 @@
 
     <!-- Custom Theme Style -->
     <link href="{% static 'gentelella/build/css/custom.min.css' %}" rel="stylesheet">
+
+    {% block extra_css %}
+
+    {% endblock %}
+
   </head>
 
   <body class="nav-md">
@@ -100,6 +105,11 @@
 
       </div>
     </div>
+
+
+    {% block extra_js %}
+
+    {% endblock %}
 
     <!-- jQuery -->
     <script src="{% static 'gentelella/vendors/jquery/dist/jquery.min.js' %}"></script>

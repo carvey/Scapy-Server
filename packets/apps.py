@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class ValuesConfig(AppConfig):
+class PacketsConfig(AppConfig):
     name = 'packets'
