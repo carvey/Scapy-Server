@@ -1,0 +1,23 @@
+{
+  "name": "secproject",
+  "version": "1.0.0",
+  "description": "Server for Computer Security Project",
+  "main": "/",
+  "dependencies": {
+    "gentelella": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+"
+  },
+  "author": "Charles Arvey",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "#readme"
+}
