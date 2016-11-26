@@ -1,0 +1,5 @@
+HTML Template: https://github.com/puikinsh/gentelella
+Web Framework: https://www.djangoproject.com/
+Websocket Library: https://channels.readthedocs.io/en/stable/
+Packet Management: https://github.com/phaethon/scapy
+Project Template: https://github.com/andrewgodwin/channels-examples/tree/master/databinding

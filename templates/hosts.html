@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+
+    <style>
+
+        #content-window {
+            position:fixed;
+            height:25%;
+            background-color: #ededed;
+            bottom:0px;
+            left:0px;
+            right:0px;
+            margin-bottom:0px;
+        }
+
+        #payload-options {
+            display: none;
+        }
+
+        /*
+        The following table css from:
+        http://stackoverflow.com/questions/21168521/scrollable-table-with-fixed-header-in-bootstrap
+        */
+        .header-fixed {
+            width: 100%
+        }
+
+        .header-fixed > thead,
+        .header-fixed > tbody,
+        .header-fixed > thead > tr,
+        .header-fixed > tbody > tr,
+        .header-fixed > thead > tr > th,
+        .header-fixed > tbody > tr > td {
+            display: block;
+        }
+
+        .header-fixed > tbody > tr:after,
+        .header-fixed > thead > tr:after {
+            content: ' ';
+            display: block;
+            visibility: hidden;
+            clear: both;
+        }
+
+        .header-fixed > tbody {
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .header-fixed > tbody > tr > td,
+
+        /*
+        width here should be 100% / num of columns
+        */
+        .header-fixed > thead > tr > th {
+            width: 25%;
+            float: left;
+        }
+
+        select {
+            width: 50%;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+
+    </style>
+
+{% endblock %}
+
+
+{% block page_content %}
+
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Remote Hosts</h3>
+      </div>
+    </div>
+
+
+    <table class="table table-striped header-fixed" id="packets-table">
+        <thead>
+          <tr>
+              <th>Count</th>
+            <th>HW Address</th>
+            <th>IP</th>
+            <th>Payloads</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for host in hosts %}
+                <tr data-value-id='{{ host.pk }}'>
+                    <td class="packet-counter">{{ forloop.counter }}</td>
+                    <td class="mac"> {{ host.mac }}</td>
+                    <td class="ip"> {{ host.ip }}</td>
+                    <td>
+                        <select class="payloads">
+                            {% for payload in payloads %}
+                                <option value="{{ payload.name }}">{{ payload.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-danger btn-execute">Execute</button>
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+      </table>
+
+    <hr>
+
+    <div id="payload-options">
+        <td>
+            <select class="payloads">
+                {% for payload in payloads %}
+                    <option value="{{ payload.name }}">{{ payload.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-danger btn-execute">Execute</button>
+        </td>
+    </div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static "js/reconnecting-websocket.min.js" %}" type="text/javascript"></script>
+
+    <script>
+        {% include 'hosts.js' %}
+    </script>
+
+{% endblock %}

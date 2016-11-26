@@ -49,9 +49,8 @@
 {#                <h3>General</h3>#}
                 <ul class="nav side-menu">
 
-{#                  <li><a href="/"><i class="fa fa-home"></i> Home </a></li>#}
-                    <li><a href="{% url 'devices' %}"><i class="fa fa-rocket"></i> Remote Devices </a></li>
                     <li><a href="{% url 'packets' %}"><i class="fa fa-wifi"></i> Packets </a></li>
+                    <li><a href="{% url 'remote_hosts' %}"><i class="fa fa-user"></i> Remote Hosts </a></li>
 
                 </ul>
               </div>
@@ -76,7 +75,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{% static 'images/one_by_one_filler.png' %}"/>
+                    <img src="{% static 'images/filler.png' %}"/>
                   </a>
 
                 </li>
@@ -89,8 +88,10 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            <div id="page-content">
+                {% block page_content %}{% endblock %}
+            </div>
 
-            {% block page_content %}{% endblock %}
 
         </div>
         <!-- /page content -->
@@ -107,10 +108,6 @@
     </div>
 
 
-    {% block extra_js %}
-
-    {% endblock %}
-
     <!-- jQuery -->
     <script src="{% static 'gentelella/vendors/jquery/dist/jquery.min.js' %}"></script>
     <!-- Bootstrap -->
@@ -120,6 +117,11 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{% static 'gentelella/build/js/custom.min.js' %}"></script>
+
+
+     {% block extra_js %}
+
+    {% endblock %}
 
 
   </body>
