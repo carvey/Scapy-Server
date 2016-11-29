@@ -132,7 +132,7 @@ class DeviceBinding(WebsocketBinding):
 
 class Host(models.Model):
 
-    mac = models.CharField(max_length=50, null=True, unique=True)
+    mac = models.CharField(max_length=50, null=True)
     ip = models.CharField(max_length=50, null=True, unique=True)
 
 
